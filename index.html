@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 07 - Procedimentos | Sistema Bancário</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Card Principal */
+        .card {
+            background: #330138;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Cabeçalho */
+        .header {
+            background: linear-gradient(135deg, #db63e6 0%, #2f035c 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Tela do Sistema */
+        .tela-sistema {
+            background: #4b4349;
+            margin: 25px;
+            border-radius: 20px;
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            color: #f0dbdb;
+            min-height: 280px;
+            border: 1px solid #334155;
+        }
+
+        .tela-sistema .linha {
+            margin-bottom: 6px;
+            white-space: pre-wrap;
+        }
+
+        /* Menu de Botões */
+        .menu-botoes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 0 25px 25px 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-saldo {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-saldo:hover {
+            background: #059669;
+            transform: scale(1.02);
+        }
+
+        .btn-extrato {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-extrato:hover {
+            background: #d97706;
+            transform: scale(1.02);
+        }
+
+        .btn-emprestimo {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-emprestimo:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+        }
+
+        .btn-sair {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-sair:hover {
+            background: #dc2626;
+            transform: scale(1.02);
+        }
+
+        /* Dicas para Modificação */
+        .dicas {
+            background: #334155;
+            margin: 0 25px 25px 25px;
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .dicas h3 {
+            color: #fbbf24;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dicas p {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .dicas code {
+            background: #0f172a;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #fbbf24;
+        }
+
+        .dica-destaque {
+            background: #0f172a;
+            color:#cbd5e1;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            border-left: 3px solid #fbbf24;
+        }
+
+        /* Rodapé */
+        .footer {
+            background: #0f172a;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #334155;
+        }
+
+        .footer p {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 600px) {
+            .menu-botoes {
+                gap: 10px;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Cabeçalho -->
+            <div class="header">
+                <h1>🏦 Sistema Bancário</h1>
+                <p>Tema 07 - Procedimentos | Clique nos botões para executar</p>
+            </div>
+
+            <!-- Tela de Execução -->
+            <div class="tela-sistema" id="telaSistema">
+                <div class="linha">========================================</div>
+                <div class="linha">       SISTEMA BANCÁRIO - MENU        </div>
+                <div class="linha">========================================</div>
+                <div class="linha">1 - SALDO</div>
+                <div class="linha">2 - EXTRATO</div>
+                <div class="linha">3 - EMPRÉSTIMO</div>
+                <div class="linha">0 - SAIR</div>
+                <div class="linha">========================================</div>
+                <div class="linha">Escolha uma opção:</div>
+            </div>
+
+            <!-- Botões do Menu -->
+            <div class="menu-botoes">
+                <button class="btn btn-saldo" onclick="executarSaldo()">💰 SALDO</button>
+                <button class="btn btn-extrato" onclick="executarExtrato()">📄 EXTRATO</button>
+                <button class="btn btn-emprestimo" onclick="executarEmprestimo()">🏦 EMPRÉSTIMO</button>
+                <button class="btn btn-sair" onclick="executarSair()">🚪 SAIR</button>
+            </div>
+
+            <!-- Rodapé -->
+            <div class="footer">
+                <p>📚 Tema 07 - Procedimentos | Organização do código com funções (procedimentos)</p>
+                <p>✅ Cada botão chama um procedimento diferente: exibirSaldo() | exibirExtrato() | exibirEmprestimo() | sair()</p>
+                <p>⏱️ O tempo de retorno ao menu é controlado pelo setTimeout()</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== VARIÁVEIS GLOBAIS (MODIFIQUE AQUI!) ==========
+        let nomeCliente = "Kratos Da Silva";
+        let saldoAtual = 3650.67;
+        let limiteEmprestimo = 67000.00;
+        
+        // ⏱️ TEMPO DE RETORNO AO MENU (em milissegundos)
+        // Altere este valor para controlar quanto tempo a tela fica visível
+        // 1000 = 1 segundo | 3000 = 3 segundos | 5000 = 5 segundos
+        let tempoRetornoMenu = 5000;  // 2 segundos padrão
+
+        // ========== PROCEDIMENTOS ==========
+
+        // Procedimento: Exibir tela de SALDO
+        function exibirSaldo() {
+            let html = '';
+            html += '========== CONSULTAR SALDO ==========\n\n';
+            html += `Cliente: ${nomeCliente}\n`;
+            html += `Saldo atual: R$ ${saldoAtual.toFixed(2)}\n\n`;
+            return html;
+        }
+
+        // Procedimento: Exibir tela de EXTRATO
+        function exibirExtrato() {
+            let html = '';
+            html += '========== EXTRATO RECENTE ==========\n\n';
+            html += `Cliente: ${nomeCliente}\n\n`;
+            html += '15/03 - Compra Supermercado    - R$ 27,90\n';
+            html += '12/03 - Pagamento Internet     - R$ 666,00\n';
+            html += '10/03 - Saque 24h              - R$ 7070,00\n';
+            html += '08/03 - Transferência Recebida + R$ 67,67\n\n';
+            html += `Saldo atual: R$ ${saldoAtual.toFixed(2)}\n\n`;
+            return html;
+        }
+
+        // Procedimento: Exibir tela de EMPRÉSTIMO
+        function exibirEmprestimo() {
+            let html = '';
+            html += '========== SOLICITAR EMPRÉSTIMO ==========\n\n';
+            html += 'Procure a sua agência para a liberação de empréstimos.\n';
+            html += `Limite disponível: R$ ${limiteEmprestimo.toFixed(2)}\n\n`;
+            return html;
+        }
+
+        // Procedimento: Exibir tela de SAIR
+        function exibirSair() {
+            let html = '';
+            html += '========================================\n';
+            html += '    Obrigado por usar nosso sistema!\n';
+            html += '========================================\n';
+            return html;
+        }
+
+        // Procedimento: Opção inválida
+        function opcaoInvalida(opcao) {
+            let html = '';
+            html += `\n❌ Opção inválida: ${opcao}\n`;
+            html += 'Digite apenas números entre 0 e 3.\n\n';
+            return html;
+        }
+
+        // Procedimento: Exibir MENU principal
+        function exibirMenu() {
+            let html = '';
+            html += '========================================\n';
+            html += '       SISTEMA BANCÁRIO - MENU        \n';
+            html += '========================================\n';
+            html += '1 - SALDO\n';
+            html += '2 - EXTRATO\n';
+            html += '3 - EMPRÉSTIMO\n';
+            html += '0 - SAIR\n';
+            html += '========================================\n';
+            html += 'Escolha uma opção: ';
+            return html;
+        }
+
+        // ========== FUNÇÕES DE CONTROLE DA TELA ==========
+
+        function atualizarTela(texto) {
+            const tela = document.getElementById('telaSistema');
+            const linhas = texto.split('\n');
+            tela.innerHTML = linhas.map(linha => `<div class="linha">${linha}</div>`).join('');
+        }
+
+        function voltarMenu() {
+            setTimeout(() => {
+                atualizarTela(exibirMenu());
+            }, tempoRetornoMenu);
+        }
+
+        function executarSaldo() {
+            atualizarTela(exibirSaldo());
+            voltarMenu();
+        }
+
+        function executarExtrato() {
+            atualizarTela(exibirExtrato());
+            voltarMenu();
+        }
+
+        function executarEmprestimo() {
+            atualizarTela(exibirEmprestimo());
+            voltarMenu();
+        }
+
+        function executarSair() {
+            atualizarTela(exibirSair());
+            setTimeout(() => {
+                atualizarTela(exibirMenu());
+            }, tempoRetornoMenu);
+        }
+
+        // Inicializar com o menu
+        atualizarTela(exibirMenu());
+    </script>
+</body>
+</html>
